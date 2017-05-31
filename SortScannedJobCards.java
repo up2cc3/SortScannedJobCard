@@ -39,6 +39,7 @@ public class SortScannedJobCards {
         java.util.List<Ficheros> listaFicheros = ficheros.buscarFicheros();
         Tesseract instance = new Tesseract(); // JNA Interface Mapping
         // Tesseract1 instance = new Tesseract1(); // JNA Direct Mapping
+        instance.setDatapath(".");
         for (Ficheros f : listaFicheros)
             try {
                 String resultado = instance.doOCR(f.getImageFile(), area);
