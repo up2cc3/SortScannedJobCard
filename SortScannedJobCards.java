@@ -43,21 +43,27 @@ public class SortScannedJobCards {
         for (Ficheros f : listaFicheros)
             try {
                 String resultado = instance.doOCR(f.getImageFile(), area);
-                if (resultado != null) {
-                    resultado = resultado.substring(0, 5);
-                    System.out.println(resultado);
 
-                    File newfile = new File(carpetaFinal + resultado + ".pdf");
+                if ((resultado.substring(0).startsWith("3"))) {
+                    f.setResult(resultado.substring(0, 5));
+                }
+                if ((resultado.substring(0).startsWith("C"))) {
+                    f.setResult(resultado.substring(0, 6));
+                }
+                if (f.getResult() != null) {
+
+
+                    File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
                     if (newfile.exists()) {
                         PDFDocument newpdf = new PDFDocument();
-                        newpdf.load(new File(carpetaFinal + resultado + ".pdf"));
+                        newpdf.load(new File(carpetaFinal + f.getResult() + ".pdf"));
                         PDFDocument myPdf = new PDFDocument();
                         myPdf.load(f.getImageFile());
                         SafeAppenderModifier modifier = new SafeAppenderModifier();
                         Map<String, Serializable> parameters = new HashMap<String, Serializable>();
                         parameters.put(SafeAppenderModifier.PARAMETER_APPEND_DOCUMENT, myPdf);
                         Document apennd = modifier.modify(newpdf, parameters);
-                        apennd.write(new File(carpetaFinal + resultado + ".pdf"));
+                        apennd.write(new File(carpetaFinal + f.getResult() + ".pdf"));
                         f.getImageFile().delete();
 
                     } else {
@@ -71,6 +77,7 @@ public class SortScannedJobCards {
                     }
                 }
 
+
             } catch (TesseractException e) {
                 System.err.println(e.getMessage());
             } catch (FileNotFoundException e) {
@@ -82,6 +89,7 @@ public class SortScannedJobCards {
             } catch (ModifierException e) {
                 e.printStackTrace();
             }
+
     }
 
 }
