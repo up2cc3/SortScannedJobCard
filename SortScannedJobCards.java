@@ -28,13 +28,14 @@ public class SortScannedJobCards {
     private static Rectangle areajc = new Rectangle(
             2060, 20, 300, 300);
     private static Rectangle areamf = new Rectangle(
-            150, 850, 300, 200);
+            260, 850, 300, 200);
     private static Rectangle areac = new Rectangle(
             1250, 525, 300, 100);
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
-        String carpetaFinal = "C:\\Users\\ccc\\Documents\\Tesseract\\Sorted\\";
+        String carpetaFinalLocal = "C:\\Users\\ccc\\Documents\\Tesseract\\Sorted\\";
+        String carpetaFinal = "S:\\Production\\Logistics\\DISPATCHES\\Dispatched - 2017\\";
         String result = null;
         File imageFile = null;
         PDFDocument pdf = null;
@@ -49,7 +50,9 @@ public class SortScannedJobCards {
                 String resultado = instance.doOCR(f.getImageFile(), areajc);
                 String resultadoc = instance.doOCR(f.getImageFile(), areac);
                 String resultadomf = instance.doOCR(f.getImageFile(), areamf);
-                System.out.println(resultado + " mi area");
+                System.out.println(resultado + " resultado");
+                System.out.println(resultadoc + " resultadoc");
+                System.out.println(resultadomf + " resultadomf");
 
                 if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
                     f.setResult(resultado.substring(0, 5));
@@ -57,12 +60,12 @@ public class SortScannedJobCards {
                     f.setResult(resultado.substring(0, 6));
                 }else if ((resultadoc.substring(0).startsWith("C"))) {
                     f.setResult(resultadoc.substring(0, 6));
-                }else if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                }else if ((resultadoc.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
                     f.setResult(resultadoc.substring(0, 5));
                 }else if ((resultadomf.substring(0).startsWith("C"))) {
-                    f.setResult(resultadoc.substring(0, 6));
+                    f.setResult(resultadomf.substring(0, 6));
                 }else if ((resultadomf.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
-                    f.setResult(resultadoc.substring(0, 5));
+                    f.setResult(resultadomf.substring(0, 5));
                 }
 
                 if (f.getResult() != null) {

@@ -17,7 +17,8 @@ public class Ficheros {
     private String result;
     private File imageFile;
     private PDFDocument pdf;
-    public String carpetaInicial = "C:\\Users\\ccc\\Documents\\Tesseract\\Unsorted\\";
+    public String carpetaInicialLocal = "C:\\Users\\ccc\\Documents\\Tesseract\\Unsorted\\";
+    public String carpetaInicial = "S:\\Production\\Logistics\\DISPATCHES\\Unsorted\\";
 
 
     public Ficheros(String result, File imageFile, PDFDocument pdf) {
