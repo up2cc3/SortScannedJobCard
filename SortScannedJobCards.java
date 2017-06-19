@@ -25,8 +25,12 @@ import java.util.Map;
 public class SortScannedJobCards {
 
 
-    private static Rectangle area = new Rectangle(
+    private static Rectangle areajc = new Rectangle(
             2060, 20, 300, 300);
+    private static Rectangle areamf = new Rectangle(
+            150, 850, 300, 200);
+    private static Rectangle areac = new Rectangle(
+            1250, 525, 300, 100);
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
@@ -42,14 +46,25 @@ public class SortScannedJobCards {
         instance.setDatapath(".");
         for (Ficheros f : listaFicheros)
             try {
-                String resultado = instance.doOCR(f.getImageFile(), area);
+                String resultado = instance.doOCR(f.getImageFile(), areajc);
+                String resultadoc = instance.doOCR(f.getImageFile(), areac);
+                String resultadomf = instance.doOCR(f.getImageFile(), areamf);
+                System.out.println(resultado + " mi area");
 
-                if ((resultado.substring(0).startsWith("3"))) {
+                if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
                     f.setResult(resultado.substring(0, 5));
-                }
-                if ((resultado.substring(0).startsWith("C"))) {
+                } else if ((resultado.substring(0).startsWith("C"))) {
                     f.setResult(resultado.substring(0, 6));
+                }else if ((resultadoc.substring(0).startsWith("C"))) {
+                    f.setResult(resultadoc.substring(0, 6));
+                }else if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                    f.setResult(resultadoc.substring(0, 5));
+                }else if ((resultadomf.substring(0).startsWith("C"))) {
+                    f.setResult(resultadoc.substring(0, 6));
+                }else if ((resultadomf.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                    f.setResult(resultadoc.substring(0, 5));
                 }
+
                 if (f.getResult() != null) {
 
 
