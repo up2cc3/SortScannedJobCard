@@ -18,7 +18,7 @@ public class Ficheros {
     private File imageFile;
     private PDFDocument pdf;
     public String carpetaInicialLocal = "C:\\Users\\ccc\\Documents\\Tesseract\\Unsorted\\";
-    public String carpetaInicial = "S:\\Production\\Logistics\\DISPATCHES\\Unsorted\\";
+    public String carpetaInicial = "S:\\Production\\Logistics\\DISPATCHES\\unsorted\\";
 
 
     public Ficheros(String result, File imageFile, PDFDocument pdf) {
@@ -33,7 +33,7 @@ public class Ficheros {
         List<Ficheros> ficheros = new ArrayList<Ficheros>();
         PDFDocument pdf=new PDFDocument();
 
-        File fDirectorio = new File(carpetaInicial);
+        File fDirectorio = new File(carpetaInicialLocal);
         if (fDirectorio.isDirectory()) {
             File[] myFiles = fDirectorio.listFiles();
 

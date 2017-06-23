@@ -35,7 +35,9 @@ public class SortScannedJobCards {
     public static void main(String[] args) {
         BasicConfigurator.configure();
         String carpetaFinalLocal = "C:\\Users\\ccc\\Documents\\Tesseract\\Sorted\\";
-        String carpetaFinal = "S:\\Production\\Logistics\\DISPATCHES\\Dispatched - 2017\\";
+        String carpetanulaLocal = "C:\\Users\\ccc\\Documents\\Tesseract\\Unsorted\\null\\";
+        String carpetaFinal = "S:\\Production\\Logistics\\DISPATCHES\\Dispatches - 2017\\";
+        String carpetanula = "S:\\Production\\Logistics\\DISPATCHES\\unsorted\\notsorted\\";
         String result = null;
         File imageFile = null;
         PDFDocument pdf = null;
@@ -54,22 +56,21 @@ public class SortScannedJobCards {
                 System.out.println(resultadoc + " resultadoc");
                 System.out.println(resultadomf + " resultadomf");
 
-                if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                 if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
                     f.setResult(resultado.substring(0, 5));
                 } else if ((resultado.substring(0).startsWith("C"))) {
                     f.setResult(resultado.substring(0, 6));
-                }else if ((resultadoc.substring(0).startsWith("C"))) {
+                }else  if ((resultadoc.substring(0).startsWith("C"))) {
                     f.setResult(resultadoc.substring(0, 6));
-                }else if ((resultadoc.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                }else if ((resultadoc.substring(0).startsWith("3"))||(resultadoc.substring(0).startsWith("4") )) {
                     f.setResult(resultadoc.substring(0, 5));
                 }else if ((resultadomf.substring(0).startsWith("C"))) {
                     f.setResult(resultadomf.substring(0, 6));
-                }else if ((resultadomf.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
+                }else if ((resultadomf.substring(0).startsWith("3"))||(resultadomf.substring(0).startsWith("4") )) {
                     f.setResult(resultadomf.substring(0, 5));
-                }
+                }else{f.setResult(null);}
 
                 if (f.getResult() != null) {
-
 
                     File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
                     if (newfile.exists()) {
@@ -86,13 +87,15 @@ public class SortScannedJobCards {
 
                     } else {
 
-
                         if (f.getImageFile().renameTo(newfile)) {
                             System.out.println("Rename succesful");
                         } else {
                             System.out.println("Rename failed");
                         }
                     }
+                } else {
+                    File newfile = new File(carpetanulaLocal+f.toString()+".pdf" );
+                    f.getImageFile().renameTo(newfile);
                 }
 
 
