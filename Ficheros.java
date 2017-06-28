@@ -33,7 +33,7 @@ public class Ficheros {
         List<Ficheros> ficheros = new ArrayList<Ficheros>();
         PDFDocument pdf=new PDFDocument();
 
-        File fDirectorio = new File(carpetaInicialLocal);
+        File fDirectorio = new File(carpetaInicial);
         if (fDirectorio.isDirectory()) {
             File[] myFiles = fDirectorio.listFiles();
 

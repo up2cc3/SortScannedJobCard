@@ -28,7 +28,7 @@ public class SortScannedJobCards {
     private static Rectangle areajc = new Rectangle(
             2060, 20, 300, 300);
     private static Rectangle areamf = new Rectangle(
-            260, 850, 300, 200);
+            262, 900, 300, 100);
     private static Rectangle areac = new Rectangle(
             1250, 525, 300, 100);
 
@@ -56,46 +56,55 @@ public class SortScannedJobCards {
                 System.out.println(resultadoc + " resultadoc");
                 System.out.println(resultadomf + " resultadomf");
 
-                 if ((resultado.substring(0).startsWith("3"))||(resultado.substring(0).startsWith("4") )) {
-                    f.setResult(resultado.substring(0, 5));
-                } else if ((resultado.substring(0).startsWith("C"))) {
+                if ((resultado.substring(0).startsWith("3")) || (resultado.substring(0).startsWith("4"))) {
+                    if (resultado.length() > 4) {
+                        f.setResult(resultado.substring(0, 5));
+                    }
+
+                } else if ((resultado.substring(0).startsWith("C") & resultado.length() > 6)) {
                     f.setResult(resultado.substring(0, 6));
-                }else  if ((resultadoc.substring(0).startsWith("C"))) {
+                } else if ((resultadoc.substring(0).startsWith("C") & resultadoc.length() > 6)) {
                     f.setResult(resultadoc.substring(0, 6));
-                }else if ((resultadoc.substring(0).startsWith("3"))||(resultadoc.substring(0).startsWith("4") )) {
-                    f.setResult(resultadoc.substring(0, 5));
-                }else if ((resultadomf.substring(0).startsWith("C"))) {
+                } else if ((resultadoc.substring(0).startsWith("3")) || (resultadoc.substring(0).startsWith("4"))) {
+                    if (resultadoc.length() > 4) {
+                        f.setResult(resultadoc.substring(0, 5));
+                    }
+                } else if ((resultadomf.substring(0).startsWith("C") & resultadomf.length() > 6)) {
                     f.setResult(resultadomf.substring(0, 6));
-                }else if ((resultadomf.substring(0).startsWith("3"))||(resultadomf.substring(0).startsWith("4") )) {
-                    f.setResult(resultadomf.substring(0, 5));
-                }else{f.setResult(null);}
-
-                if (f.getResult() != null) {
-
-                    File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
-                    if (newfile.exists()) {
-                        PDFDocument newpdf = new PDFDocument();
-                        newpdf.load(new File(carpetaFinal + f.getResult() + ".pdf"));
-                        PDFDocument myPdf = new PDFDocument();
-                        myPdf.load(f.getImageFile());
-                        SafeAppenderModifier modifier = new SafeAppenderModifier();
-                        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-                        parameters.put(SafeAppenderModifier.PARAMETER_APPEND_DOCUMENT, myPdf);
-                        Document apennd = modifier.modify(newpdf, parameters);
-                        apennd.write(new File(carpetaFinal + f.getResult() + ".pdf"));
-                        f.getImageFile().delete();
-
-                    } else {
-
-                        if (f.getImageFile().renameTo(newfile)) {
-                            System.out.println("Rename succesful");
-                        } else {
-                            System.out.println("Rename failed");
-                        }
+                } else if ((resultadomf.substring(0).startsWith("3")) || (resultadomf.substring(0).startsWith("4"))) {
+                    if (resultadomf.length() > 4) {
+                        f.setResult(resultadomf.substring(0, 5));
                     }
                 } else {
-                    File newfile = new File(carpetanulaLocal+f.toString()+".pdf" );
-                    f.getImageFile().renameTo(newfile);
+                    f.setResult(null);
+                }
+
+                File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
+
+                if (newfile.exists() || (f.getResult() != null)) {
+                    PDFDocument newpdf = new PDFDocument();
+                    newpdf.load(new File(carpetaFinal + f.getResult() + ".pdf"));
+                    PDFDocument myPdf = new PDFDocument();
+                    myPdf.load(f.getImageFile());
+                    SafeAppenderModifier modifier = new SafeAppenderModifier();
+                    Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+                    parameters.put(SafeAppenderModifier.PARAMETER_APPEND_DOCUMENT, myPdf);
+                    Document apennd = modifier.modify(newpdf, parameters);
+                    apennd.write(new File(carpetaFinal + f.getResult() + ".pdf"));
+                    f.getImageFile().delete();
+
+                } else {
+
+                    if (f.getImageFile().renameTo(newfile)) {
+                        System.out.println("Rename succesful");
+                    } else {
+
+                        File newfile1 = new File(carpetanula + f.toString() + ".pdf");
+                        if (f.getImageFile().renameTo(newfile1)){
+                            System.out.println("Rename failed");
+                        }
+
+                    }
                 }
 
 
