@@ -79,33 +79,38 @@ public class SortScannedJobCards {
                     f.setResult(null);
                 }
 
-                File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
+                if (f.getResult() != null) {
 
-                if (newfile.exists() || (f.getResult() != null)) {
-                    PDFDocument newpdf = new PDFDocument();
-                    newpdf.load(new File(carpetaFinal + f.getResult() + ".pdf"));
-                    PDFDocument myPdf = new PDFDocument();
-                    myPdf.load(f.getImageFile());
-                    SafeAppenderModifier modifier = new SafeAppenderModifier();
-                    Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-                    parameters.put(SafeAppenderModifier.PARAMETER_APPEND_DOCUMENT, myPdf);
-                    Document apennd = modifier.modify(newpdf, parameters);
-                    apennd.write(new File(carpetaFinal + f.getResult() + ".pdf"));
-                    f.getImageFile().delete();
+                    File newfile = new File(carpetaFinal + f.getResult() + ".pdf");
+                    if (newfile.exists()) {
+                        PDFDocument newpdf = new PDFDocument();
+                        newpdf.load(new File(carpetaFinal + f.getResult() + ".pdf"));
+                        PDFDocument myPdf = new PDFDocument();
+                        myPdf.load(f.getImageFile());
+                        SafeAppenderModifier modifier = new SafeAppenderModifier();
+                        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+                        parameters.put(SafeAppenderModifier.PARAMETER_APPEND_DOCUMENT, myPdf);
+                        Document apennd = modifier.modify(newpdf, parameters);
+                        apennd.write(new File(carpetaFinal + f.getResult() + ".pdf"));
+                        f.getImageFile().delete();
 
-                } else {
-
-                    if (f.getImageFile().renameTo(newfile)) {
-                        System.out.println("Rename succesful");
                     } else {
 
-                        File newfile1 = new File(carpetanula + f.toString() + ".pdf");
-                        if (f.getImageFile().renameTo(newfile1)){
+                        if (f.getImageFile().renameTo(newfile)) {
+                            System.out.println("Rename succesful");
+                        } else {
+
                             System.out.println("Rename failed");
                         }
-
                     }
+                } else if (f.getResult() == null){
+                    File newfile = new File(carpetanula + f.getImageFile().toString() + ".pdf");
+                   if( f.getImageFile().renameTo(newfile)){
+                       System.out.println("al monton");
+                    }
+
                 }
+
 
 
             } catch (TesseractException e) {
