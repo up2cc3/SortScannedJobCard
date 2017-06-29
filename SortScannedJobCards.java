@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,7 +106,10 @@ public class SortScannedJobCards {
                         }
                     }
                 } else if (f.getResult() == null){
-                    File newfile = new File(carpetanula + f.getImageFile().toString() + ".pdf");
+                    Date today= Calendar.getInstance().getTime();
+                    String date=today.toString();
+                    File newfile = new File(carpetanula +date+ f.getImageFile().toString() + ".pdf");
+
                    if( f.getImageFile().renameTo(newfile)){
                        System.out.println("al monton");
                     }
