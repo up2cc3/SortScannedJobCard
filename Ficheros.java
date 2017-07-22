@@ -21,6 +21,7 @@ public class Ficheros {
     public String carpetaInicial = "S:\\Production\\Logistics\\DISPATCHES\\unsorted\\";
 
 
+
     public Ficheros(String result, File imageFile, PDFDocument pdf) {
 
         setResult(result);
@@ -33,7 +34,7 @@ public class Ficheros {
         List<Ficheros> ficheros = new ArrayList<Ficheros>();
         PDFDocument pdf=new PDFDocument();
 
-        File fDirectorio = new File(carpetaInicial);
+        File fDirectorio = new File(carpetaInicialLocal);
         if (fDirectorio.isDirectory()) {
             File[] myFiles = fDirectorio.listFiles();
 
